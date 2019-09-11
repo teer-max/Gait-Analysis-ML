@@ -1,0 +1,2 @@
+# Gait-Analysis-ML
+This code was written for research with a kinesiology professor at my undergraduate university. Our data is 3D accelerometer and gyroscope data taken from an inertial measurement unit attached on the top of the foot. I filtered the data, reoriented the axes and performed data visualizations to determine the features I would use to train the nearest neighbor model. Our goal was to classify various activities of the wearer: walking, standing, running, etc.
