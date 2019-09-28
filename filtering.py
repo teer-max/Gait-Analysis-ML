@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 
 
+
 def butter_bandpass(lowcut,highcut,fs,order=5):
     nyq = 0.5 *fs
     low = lowcut / nyq
@@ -17,7 +18,7 @@ def butter_bandpass_filter(data,lowcut,highcut,fs,order=5):
     return y
 
 
-df = pd.read_csv(r'C:\Users\TeerM\OneDrive\Desktop\Research\Codes\PycharmProjects\untitled\Oriented data.csv')
+df = pd.read_csv(r'C:\Users\TeerM\OneDrive\Desktop\Projects\Gait-Analysis-ML\Oriented data.csv')
 
 motion_data_columns = [7, 8, 9, 10, 11, 12]
 filtered_columns = ['Filt Reor X Accelerometer', 'Filt Reor Y Accelerometer',
@@ -42,6 +43,8 @@ for i in motion_data_columns:
 
 
 f, axarr = plt.subplots(3,2,sharey="row",sharex='col')
+
+
 
 axarr[0, 0].plot(df.iloc[20150:20400, 7].values)
 axarr[1, 0].plot(df.iloc[20150:20400, 8].values)
@@ -73,3 +76,19 @@ axarr[1, 1].set_title(str(filtered_df2.columns[4]))
 axarr[2, 1].set_title(str(filtered_df2.columns[5]))
 plt.show()
 
+from scipy.fftpack import fft
+# Number of sample points
+N = 700
+# sample spacing
+T = 1.0 / 100.0
+x = np.linspace(0.0, N*T, N)
+y = df.iloc[20050:20750,7].values
+y2 = filtered_df.iloc[20050:20750,0].values
+yf = fft(y)
+yf2 = fft(y2)
+xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
+import matplotlib.pyplot as plt
+plt.plot(xf, 2.0/N * np.abs(yf[0:N//2]))
+plt.plot(xf, 2.0/N * np.abs(yf2[0:N//2]))
+plt.grid()
+plt.show()
